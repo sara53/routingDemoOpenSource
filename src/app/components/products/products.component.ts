@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductService } from 'src/app/services/product.service';
+import { ProductService } from '../../services/product.service';
 import { Iproduct } from '../../models/iproduct';
 
 @Component({
@@ -9,8 +9,10 @@ import { Iproduct } from '../../models/iproduct';
 })
 export class ProductsComponent implements OnInit {
   products: Iproduct[] = [];
-  constructor(private productService: ProductService) {} // initalization
+  constructor(private productService: ProductService) {}
   ngOnInit(): void {
-    this.products = this.productService.getAllProduct();
+    this.productService.getAllProducts().subscribe({
+      next: (response) => (this.products = response),
+    });
   }
 }
